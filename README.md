@@ -2,10 +2,17 @@
 <p align="center">
 <img src="https://readme-typing-svg.herokuapp.com?font=Times+New+Roman&weight=610&size=30&pause=1000&color=2F70EB&background=A62CA000&center=true&vCenter=true&width=820&lines=Computer+Engineering+Student;" alt="Typing SVG" />
 </p>
+
+<hr>
+
+<h3 align="center">💻 <em>Simplicity is the ultimate sophistication</em></h3>
+
+<hr>
+
+
 <img align="right" alt="Coding" width="400" height = "300" src="https://cdn.dribbble.com/users/1162077/screenshots/5403918/focus-animation.gif">
 
 
-:computer:🎨 Simplicity is the ultimate sophistication
 
 
 <h3 align="left">Languages and Tools:</h3>
