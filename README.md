@@ -10,7 +10,7 @@
 <hr>
 
 
-<img align="right" alt="Coding" width="400" height = "300" src="https://cdn.dribbble.com/users/1162077/screenshots/5403918/focus-animation.gif">
+<img align="right" alt="Coding" width="400" height = "300" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHd6a2lpdHNsY2gweTJyaDRrOGpoZzF5eGRnajV6cnNibWZ2b203MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L8K62iTDkzGX6/giphy.gif">
 
 
 
