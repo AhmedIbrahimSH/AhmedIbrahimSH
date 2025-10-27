@@ -12,8 +12,9 @@
 <hr>
 
 
-<img align="right" alt="Coding" width="400" height = "300" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHd6a2lpdHNsY2gweTJyaDRrOGpoZzF5eGRnajV6cnNibWZ2b203MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L8K62iTDkzGX6/giphy.gif">
-
+<p align="center">
+  <img src="assets/Screenshot 2025-10-27 212721.png" alt="Coding" width="100%">
+</p>
 
 ## 🛠️ Tech Stack
 
