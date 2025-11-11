@@ -1,4 +1,4 @@
-name: Update PR List
+name: Update PR Tree
 
 on:
   schedule:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Generate PR List
+      - name: Generate PR Tree
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -30,39 +30,69 @@ jobs:
               per_page: 100
             });
 
-            // Generate tree-style list
-            let output = '## 🚀 My Open Source Contributions\n\n';
-            
-            for (const pr of prs.slice(0, 50)) {  // Limit to 50 most recent PRs
+            // Group PRs by repository
+            const prsByRepo = {};
+            for (const pr of prs.slice(0, 50)) {
               const repo = pr.repository_url.split('/').slice(-2).join('/');
-              const title = pr.title;
-              const status = pr.state === 'open' ? '🟢' : 
-                            pr.pull_request?.merged_at ? '🟣' : '🔴';
-              const statusText = pr.state === 'open' ? 'Open' : 
-                                pr.pull_request?.merged_at ? 'Merged' : 'Closed';
-              const created = new Date(pr.created_at).toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'short', 
-                day: 'numeric' 
-              });
+              if (!prsByRepo[repo]) {
+                prsByRepo[repo] = [];
+              }
+              prsByRepo[repo].push(pr);
+            }
+
+            // Generate tree structure
+            let output = '## 🌳 My Open Source Contributions\n\n';
+            
+            const repos = Object.keys(prsByRepo);
+            
+            for (let i = 0; i < repos.length; i++) {
+              const repo = repos[i];
+              const repoPRs = prsByRepo[repo];
+              const isLastRepo = i === repos.length - 1;
+              const repoPrefix = isLastRepo ? '└──' : '├──';
+              const childPrefix = isLastRepo ? '    ' : '│   ';
               
-              // Tree-style format with horizontal layout
-              output += `├── ${status} **[${repo}](https://github.com/${repo})** → [${title}](${pr.html_url})\n`;
-              output += `│   └── *${statusText}* • Created: ${created}`;
+              // Repository branch
+              output += `${repoPrefix} 📦 **[${repo}](https://github.com/${repo})**\n`;
               
-              if (pr.pull_request?.merged_at) {
-                const merged = new Date(pr.pull_request.merged_at).toLocaleDateString('en-US', { 
+              // PRs as sub-branches (each PR is a table row at the end of branch)
+              for (let j = 0; j < repoPRs.length; j++) {
+                const pr = repoPRs[j];
+                const isLastPR = j === repoPRs.length - 1;
+                const prPrefix = isLastPR ? '└──' : '├──';
+                
+                const status = pr.state === 'open' ? '🟢' : 
+                              pr.pull_request?.merged_at ? '🟣' : '🔴';
+                const statusText = pr.state === 'open' ? 'Open' : 
+                                  pr.pull_request?.merged_at ? 'Merged' : 'Closed';
+                const created = new Date(pr.created_at).toLocaleDateString('en-US', { 
                   year: 'numeric', 
                   month: 'short', 
                   day: 'numeric' 
                 });
-                output += ` • Merged: ${merged}`;
+                
+                // Each PR as a table at the end of its branch
+                output += `${childPrefix}${prPrefix} ${status} **[${pr.title}](${pr.html_url})**\n`;
+                
+                // Table for this PR's details
+                const tablePrefix = isLastPR ? '    ' : '│   ';
+                output += `${childPrefix}${tablePrefix}\n`;
+                output += `${childPrefix}${tablePrefix}| Status | Created | Merged |\n`;
+                output += `${childPrefix}${tablePrefix}|--------|---------|--------|\n`;
+                
+                const merged = pr.pull_request?.merged_at ? 
+                              new Date(pr.pull_request.merged_at).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'short', 
+                                day: 'numeric' 
+                              }) : '-';
+                
+                output += `${childPrefix}${tablePrefix}| ${statusText} | ${created} | ${merged} |\n`;
+                output += `${childPrefix}${tablePrefix}\n`;
               }
-              
-              output += '\n│\n';
             }
             
-            output += `└── *Last updated: ${new Date().toLocaleDateString('en-US', { 
+            output += `\n*Last updated: ${new Date().toLocaleDateString('en-US', { 
               year: 'numeric', 
               month: 'long', 
               day: 'numeric',
@@ -74,8 +104,8 @@ jobs:
             let readme = fs.readFileSync('README.md', 'utf8');
             
             // Replace content between markers
-            const startMarker = '<!-- PR_LIST_START -->';
-            const endMarker = '<!-- PR_LIST_END -->';
+            const startMarker = '<!-- PR_TREE_START -->';
+            const endMarker = '<!-- PR_TREE_END -->';
             
             if (readme.includes(startMarker) && readme.includes(endMarker)) {
               const before = readme.substring(0, readme.indexOf(startMarker) + startMarker.length);
@@ -97,4 +127,4 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update PR list" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update PR tree" && git push)
