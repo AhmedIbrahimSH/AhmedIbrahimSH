@@ -1,4 +1,4 @@
-name: Update PR Table
+name: Update PR List
 
 on:
   schedule:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Generate PR Table
+      - name: Generate PR List
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -30,32 +30,39 @@ jobs:
               per_page: 100
             });
 
-            // Generate markdown table
-            let table = '## My Open Source Pull Requests\n\n';
-            table += '| Repository | PR Title | Status | Created | Merged |\n';
-            table += '|------------|----------|--------|---------|--------|\n';
+            // Generate tree-style list
+            let output = '## 🚀 My Open Source Contributions\n\n';
             
             for (const pr of prs.slice(0, 50)) {  // Limit to 50 most recent PRs
               const repo = pr.repository_url.split('/').slice(-2).join('/');
-              const title = pr.title.length > 60 ? pr.title.substring(0, 57) + '...' : pr.title;
-              const status = pr.state === 'open' ? '🟢 Open' : 
-                            pr.pull_request?.merged_at ? '🟣 Merged' : '🔴 Closed';
+              const title = pr.title;
+              const status = pr.state === 'open' ? '🟢' : 
+                            pr.pull_request?.merged_at ? '🟣' : '🔴';
+              const statusText = pr.state === 'open' ? 'Open' : 
+                                pr.pull_request?.merged_at ? 'Merged' : 'Closed';
               const created = new Date(pr.created_at).toLocaleDateString('en-US', { 
                 year: 'numeric', 
                 month: 'short', 
                 day: 'numeric' 
               });
-              const merged = pr.pull_request?.merged_at ? 
-                            new Date(pr.pull_request.merged_at).toLocaleDateString('en-US', { 
-                              year: 'numeric', 
-                              month: 'short', 
-                              day: 'numeric' 
-                            }) : '-';
               
-              table += `| [${repo}](${pr.html_url}) | ${title} | ${status} | ${created} | ${merged} |\n`;
+              // Tree-style format with horizontal layout
+              output += `├── ${status} **[${repo}](https://github.com/${repo})** → [${title}](${pr.html_url})\n`;
+              output += `│   └── *${statusText}* • Created: ${created}`;
+              
+              if (pr.pull_request?.merged_at) {
+                const merged = new Date(pr.pull_request.merged_at).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'short', 
+                  day: 'numeric' 
+                });
+                output += ` • Merged: ${merged}`;
+              }
+              
+              output += '\n│\n';
             }
             
-            table += `\n*Last updated: ${new Date().toLocaleDateString('en-US', { 
+            output += `└── *Last updated: ${new Date().toLocaleDateString('en-US', { 
               year: 'numeric', 
               month: 'long', 
               day: 'numeric',
@@ -67,16 +74,16 @@ jobs:
             let readme = fs.readFileSync('README.md', 'utf8');
             
             // Replace content between markers
-            const startMarker = '<!-- PR_TABLE_START -->';
-            const endMarker = '<!-- PR_TABLE_END -->';
+            const startMarker = '<!-- PR_LIST_START -->';
+            const endMarker = '<!-- PR_LIST_END -->';
             
             if (readme.includes(startMarker) && readme.includes(endMarker)) {
               const before = readme.substring(0, readme.indexOf(startMarker) + startMarker.length);
               const after = readme.substring(readme.indexOf(endMarker));
-              readme = before + '\n' + table + '\n' + after;
+              readme = before + '\n' + output + '\n' + after;
             } else {
               // If markers don't exist, append to end
-              readme += '\n\n' + startMarker + '\n' + table + '\n' + endMarker;
+              readme += '\n\n' + startMarker + '\n' + output + '\n' + endMarker;
             }
             
             fs.writeFileSync('README.md', readme);
@@ -86,8 +93,8 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update PR table" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update PR list" && git push)
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update PR table" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update PR list" && git push)
