@@ -67,7 +67,7 @@
 
 
 <!-- PR_TABLE_START -->
-## 🔥 My Open Source Pull Requests
+## My Open Source Pull Requests
 
 | Repository | PR Title | Status | Created | Merged |
 |------------|----------|--------|---------|--------|
