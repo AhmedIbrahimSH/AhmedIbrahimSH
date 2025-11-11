@@ -62,52 +62,5 @@
 
 
 
-<!-- ![snake gif](https://github.com/AhmedIbrahimSH/AhmedIbrahimSH/blob/output/github-contribution-grid-snake.gif) --> 
 
 
-<!-- PR_TABLE_START -->
-## 🔥 My Open Source Pull Requests
-
-| Repository | PR Title | Status | Created | Merged |
-|------------|----------|--------|---------|--------|
-| [kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap/pull/9143) | Added visualization resource on rate limiting techniques ... | 🟣 Merged | Sep 11, 2025 | Oct 20, 2025 |
-| [AhmedIbrahimSH/sdp](https://github.com/AhmedIbrahimSH/sdp/pull/6) | Event management/create events | 🟣 Merged | Nov 24, 2024 | Nov 24, 2024 |
-
-*Last updated: November 11, 2025 at 05:14 PM*
-
-<!-- PR_TABLE_END -->
-
-<!-- PR_LIST_START -->
-## 🚀 My Open Source Contributions
-
-├── 🟣 **[kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap)** → [Added visualization resource on rate limiting techniques for the APIs design roadmap , in the rate limiting topic](https://github.com/kamranahmedse/developer-roadmap/pull/9143)
-│   └── *Merged* • Created: Sep 11, 2025 • Merged: Oct 20, 2025
-│
-├── 🟣 **[AhmedIbrahimSH/sdp](https://github.com/AhmedIbrahimSH/sdp)** → [Event management/create events](https://github.com/AhmedIbrahimSH/sdp/pull/6)
-│   └── *Merged* • Created: Nov 24, 2024 • Merged: Nov 24, 2024
-│
-└── *Last updated: November 11, 2025 at 05:35 PM*
-
-<!-- PR_LIST_END -->
-
-<!-- PR_TREE_START -->
-## 🌳 My Open Source Contributions
-
-├── 📦 **[kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap)**
-│   └── 🟣 **[Added visualization resource on rate limiting techniques for the APIs design roadmap , in the rate limiting topic](https://github.com/kamranahmedse/developer-roadmap/pull/9143)**
-│       
-│       | Status | Created | Merged |
-│       |--------|---------|--------|
-│       | Merged | Sep 11, 2025 | Oct 20, 2025 |
-│       
-└── 📦 **[AhmedIbrahimSH/sdp](https://github.com/AhmedIbrahimSH/sdp)**
-    └── 🟣 **[Event management/create events](https://github.com/AhmedIbrahimSH/sdp/pull/6)**
-        
-        | Status | Created | Merged |
-        |--------|---------|--------|
-        | Merged | Nov 24, 2024 | Nov 24, 2024 |
-        
-
-*Last updated: November 11, 2025 at 05:38 PM*
-
-<!-- PR_TREE_END -->
