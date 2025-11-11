@@ -31,7 +31,7 @@ jobs:
             });
 
             // Generate markdown table
-            let table = '## 🔥 My Open Source Pull Requests\n\n';
+            let table = '## My Open Source Pull Requests\n\n';
             table += '| Repository | PR Title | Status | Created | Merged |\n';
             table += '|------------|----------|--------|---------|--------|\n';
             
