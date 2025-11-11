@@ -64,3 +64,16 @@
 
 
 
+
+
+<!-- PR_TABLE_START -->
+## 🔥 My Open Source Pull Requests
+
+| Repository | PR Title | Status | Created | Merged |
+|------------|----------|--------|---------|--------|
+| [kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap/pull/9143) | Added visualization resource on rate limiting techniques ... | 🟣 Merged | Sep 11, 2025 | Oct 20, 2025 |
+| [AhmedIbrahimSH/sdp](https://github.com/AhmedIbrahimSH/sdp/pull/6) | Event management/create events | 🟣 Merged | Nov 24, 2024 | Nov 24, 2024 |
+
+*Last updated: November 11, 2025 at 05:40 PM*
+
+<!-- PR_TABLE_END -->
