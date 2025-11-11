@@ -1,0 +1,93 @@
+name: Update PR Table
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at midnight
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate PR Table
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            
+            // Get all PRs created by the user
+            const username = 'AhmedIbrahimSH';
+            const query = `author:${username} is:pr`;
+            
+            const prs = await github.paginate(github.rest.search.issuesAndPullRequests, {
+              q: query,
+              sort: 'created',
+              order: 'desc',
+              per_page: 100
+            });
+
+            // Generate markdown table
+            let table = '## 🔥 My Open Source Pull Requests\n\n';
+            table += '| Repository | PR Title | Status | Created | Merged |\n';
+            table += '|------------|----------|--------|---------|--------|\n';
+            
+            for (const pr of prs.slice(0, 50)) {  // Limit to 50 most recent PRs
+              const repo = pr.repository_url.split('/').slice(-2).join('/');
+              const title = pr.title.length > 60 ? pr.title.substring(0, 57) + '...' : pr.title;
+              const status = pr.state === 'open' ? '🟢 Open' : 
+                            pr.pull_request?.merged_at ? '🟣 Merged' : '🔴 Closed';
+              const created = new Date(pr.created_at).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+              });
+              const merged = pr.pull_request?.merged_at ? 
+                            new Date(pr.pull_request.merged_at).toLocaleDateString('en-US', { 
+                              year: 'numeric', 
+                              month: 'short', 
+                              day: 'numeric' 
+                            }) : '-';
+              
+              table += `| [${repo}](${pr.html_url}) | ${title} | ${status} | ${created} | ${merged} |\n`;
+            }
+            
+            table += `\n*Last updated: ${new Date().toLocaleDateString('en-US', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}*\n`;
+
+            // Read current README
+            let readme = fs.readFileSync('README.md', 'utf8');
+            
+            // Replace content between markers
+            const startMarker = '<!-- PR_TABLE_START -->';
+            const endMarker = '<!-- PR_TABLE_END -->';
+            
+            if (readme.includes(startMarker) && readme.includes(endMarker)) {
+              const before = readme.substring(0, readme.indexOf(startMarker) + startMarker.length);
+              const after = readme.substring(readme.indexOf(endMarker));
+              readme = before + '\n' + table + '\n' + after;
+            } else {
+              // If markers don't exist, append to end
+              readme += '\n\n' + startMarker + '\n' + table + '\n' + endMarker;
+            }
+            
+            fs.writeFileSync('README.md', readme);
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update PR table" && git push)
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update PR table" && git push)
