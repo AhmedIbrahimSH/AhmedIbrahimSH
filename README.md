@@ -44,9 +44,7 @@
 
 ### Frameworks & Libraries
 <p>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg" alt="Spring" width="45" height="45"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/pytest/pytest-original.svg" alt="Pytest" width="45" height="45"/>
-
 </p>
 
 ### Tools and Platforms
