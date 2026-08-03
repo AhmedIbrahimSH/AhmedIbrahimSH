@@ -79,9 +79,10 @@
 
 | Repository | PR Title | Status | Created | Merged |
 |------------|----------|--------|---------|--------|
+| [AhmedIbrahimSH/mini_rag_system](https://github.com/AhmedIbrahimSH/mini_rag_system/pull/1) | Feat/project hierarchy | 🟢 Open | Aug 2, 2026 | - |
 | [nilbuild/developer-roadmap](https://github.com/nilbuild/developer-roadmap/pull/9143) | Added visualization resource on rate limiting techniques ... | 🟣 Merged | Sep 11, 2025 | Oct 20, 2025 |
 | [AhmedIbrahimSH/sdp](https://github.com/AhmedIbrahimSH/sdp/pull/6) | Event management/create events | 🟣 Merged | Nov 24, 2024 | Nov 24, 2024 |
 
-*Last updated: August 2, 2026 at 01:44 AM*
+*Last updated: August 3, 2026 at 01:47 AM*
 
 <!-- PR_TABLE_END -->
