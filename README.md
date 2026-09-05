@@ -7,7 +7,7 @@
 
 <hr>
 
-<h3 align="center">💻 <em>Simplicity is the ultimate sophistication</em></h3>
+<h3 align="center"><em>“ An idiot admires complexity, a genius admires simplicity “</em></h3>
 
 <hr>
 
