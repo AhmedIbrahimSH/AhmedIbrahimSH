@@ -12,9 +12,9 @@
 <hr>
 
 
-<p align="center">
+<!-- <p align="center">
   <img src="assets/Screenshot 2025-10-27 212721.png" alt="Coding" width="100%">
-</p>
+</p> -->
 
 ## 🛠️ Tech Stack
 
