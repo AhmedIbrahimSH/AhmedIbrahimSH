@@ -8,7 +8,8 @@
 <hr>
 
 <h3 align="center"><em>“ An idiot admires complexity, a genius admires simplicity “</em></h3>
-
+<hr>
+<h3 align="center"><em>“ Less is more “</em></h3>
 <hr>
 
 
